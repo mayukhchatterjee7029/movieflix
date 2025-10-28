@@ -5,7 +5,7 @@ import { icons } from '@/constants/icons'
 
 const Profile = () => {
   return (
-    <View className='flex-1 bg-primary px-10 relative' >
+    <View className='flex-1 bg-primary relative' >
       <Image source={images.bg} className='flex-1 absolute w-full z-0' resizeMode='cover' />
 
       <View className='justify-center items-center flex-1 flex-col gap-5 '>
