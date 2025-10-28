@@ -3,12 +3,11 @@ import React from 'react'
 import { Tabs } from 'expo-router'
 import { images } from '@/constants/images'
 import { icons } from '@/constants/icons'
-import { SafeAreaView } from 'react-native-safe-area-context'
+
 
 const TabIcon = ({ title, icon, focused }: any) => {
 
     if (focused) {
-
         return (
             <ImageBackground
                 source={images.highlight}
@@ -18,16 +17,12 @@ const TabIcon = ({ title, icon, focused }: any) => {
                 <Text>{title}</Text>
 
             </ImageBackground>
-
         )
     }
 
     return (
-
-        <View
-            className="size-full mt-4 justify-center items-center rounded-full" >
-
-            <Image source={icon} className='size-5' />
+        <View className="size-full mt-4 justify-center items-center rounded-full" >
+            <Image source={icon} tintColor={"#9CA4AB"} className='size-5' />
         </View>
     )
 
@@ -36,26 +31,26 @@ const TabIcon = ({ title, icon, focused }: any) => {
 const _Layout = () => {
     return (
         <Tabs
-        screenOptions={{
-            tabBarShowLabel: false,
-            tabBarItemStyle: {
-                width: "100%",
-                height: "100%",
-                justifyContent: "center",
-                alignItems: "center"
-            },
-            tabBarStyle: {
-                backgroundColor: "#0f0d23",
-                borderRadius: 50,
-                marginHorizontal: 12,
-                marginBottom: 36,
-                position: "absolute",
-                overflow: "hidden",
-                borderWidth: 1,
-                borderColor: "#0f0d23",
-                height: 52
-            }
-        }}
+            screenOptions={{
+                tabBarShowLabel: false,
+                tabBarItemStyle: {
+                    width: "100%",
+                    height: "100%",
+                    justifyContent: "center",
+                    alignItems: "center"
+                },
+                tabBarStyle: {
+                    backgroundColor: "#0f0d23",
+                    borderRadius: 50,
+                    marginHorizontal: 12,
+                    marginBottom: 36,
+                    position: "absolute",
+                    overflow: "hidden",
+                    borderWidth: 1,
+                    borderColor: "#0f0d23",
+                    height: 52
+                }
+            }}
 
         >
             <Tabs.Screen
