@@ -30,16 +30,23 @@ const Search = () => {
         await loadMovies();
 
         if (movies?.length > 0 && movies?.[0]) {
-          updateSearchCount(searchQuery, movies[0]);
+          await updateSearchCount(searchQuery, movies[0]);
         }
       } else {
         reset()
       }
-    }, 500)
+    }, 1000)
 
     return () => clearTimeout(timeoutId);
 
   }, [searchQuery])
+
+
+  useEffect(() => {
+    if (movies?.length > 0 && movies?.[0]) {
+      updateSearchCount(searchQuery, movies[0]);
+    }
+  }, [movies])
 
 
   return (
