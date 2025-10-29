@@ -13,6 +13,9 @@ import user from "@/assets/icons/user.png";
 import pencil from "@/assets/icons/pencil.png";
 import back from "@/assets/icons/back.png";
 import logout from "@/assets/icons/logout.png";
+import heart_red from "@/assets/icons/heart_red.png"
+import heart_outline from "@/assets/icons/heart-outline.png"
+
 
 export const icons = {
   home,
@@ -30,4 +33,7 @@ export const icons = {
   back,
   pencil,
   logout,
+  heart_red,
+  heart_outline,
+  
 };

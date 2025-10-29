@@ -1,10 +1,10 @@
 // track the searches made by an user
+import Toast from 'react-native-toast-message';
 import { Client, Databases, Query, ID } from "react-native-appwrite"
-
-
 
 const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID!;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
+const FAVOURITE_ID = process.env.EXPO_PUBLIC_APPWRITE_FAVOURITE_ID!;
 const ENDPOINT = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!;
 
 
@@ -53,7 +53,7 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
 export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> => {
     try {
         const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-            Query.limit(5), 
+            Query.limit(5),
             Query.orderDesc("count"),
         ])
         return result.documents as unknown as TrendingMovie[];
@@ -62,3 +62,66 @@ export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> 
         return undefined;
     }
 }
+
+// Favourite Movies
+export const FavouriteMovies = async ({
+    id,
+    poster_path,
+    title }: Movie) => {
+
+    // Look for if the movie is already in the database 
+    try {
+        const result = await database.listDocuments(DATABASE_ID, FAVOURITE_ID, [
+            Query.equal("movie_id", id)
+        ]);
+
+        let added: boolean;
+
+        if (result.documents.length === 0) {
+            // If the movie is not added, add it
+            await database.createDocument(DATABASE_ID, FAVOURITE_ID, ID.unique(), {
+                movie_id: id,
+                title: title,
+                poster_url: `https://image.tmdb.org/t/p/w500${poster_path}`
+            });
+            added = true;
+        } else {
+            // Else remove it
+            await database.deleteDocument(
+                DATABASE_ID, FAVOURITE_ID, result.documents[0].$id
+            )
+            added = false;
+        }
+        Toast.show({
+            type: added ? "success" : "info",
+            text1: added ? "Added to Favourites 💖" : "Removed from Favourites 💔",
+            position: "bottom",
+            visibilityTime: 500
+        })
+        return { added };
+
+    } catch (error) {
+        console.error("❌ Error updating favourites:", error);
+        Toast.show({
+            type: "error",
+            text1: "Something went wrong!",
+            text2: "Please try again later.",
+            position: "bottom",
+        });
+    }
+
+}
+
+
+export const isFavouriteMovie = async (id: number): Promise<boolean> => {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, FAVOURITE_ID, [
+      Query.equal("movie_id", id)
+    ]);
+
+    return result.documents.length > 0;
+  } catch (error) {
+    console.log("Error checking favourite:", error);
+    return false;
+  }
+};
