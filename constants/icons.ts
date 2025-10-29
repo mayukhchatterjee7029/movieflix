@@ -6,6 +6,13 @@ import save from "@/assets/icons/save.png";
 import star from "@/assets/icons/star.png";
 import play from "@/assets/icons/play.png";
 import arrow from "@/assets/icons/arrow.png";
+import mylist from "@/assets/icons/mylist.png";
+import gear from "@/assets/icons/gear.png";
+import help from "@/assets/icons/help.png";
+import user from "@/assets/icons/user.png";
+import pencil from "@/assets/icons/pencil.png";
+import back from "@/assets/icons/back.png";
+import logout from "@/assets/icons/logout.png";
 
 export const icons = {
   home,
@@ -16,4 +23,11 @@ export const icons = {
   star,
   play,
   arrow,
+  mylist,
+  gear,
+  help,
+  user,
+  back,
+  pencil,
+  logout,
 };
