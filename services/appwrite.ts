@@ -7,6 +7,12 @@ const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID!;
 const FAVOURITE_ID = process.env.EXPO_PUBLIC_APPWRITE_FAVOURITE_ID!;
 const ENDPOINT = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!;
 
+interface FavMovieProps {
+    id: number;
+    poster_path: string;
+    title: string;
+    
+}
 
 const client = new Client()
     .setEndpoint(ENDPOINT)
@@ -64,10 +70,11 @@ export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> 
 }
 
 // Favourite Movies
-export const FavouriteMovies = async ({
+
+export const ToggleFavouriteMovies = async ({
     id,
     poster_path,
-    title }: Movie) => {
+    title, }: FavMovieProps) => {
 
     // Look for if the movie is already in the database 
     try {
@@ -112,16 +119,27 @@ export const FavouriteMovies = async ({
 
 }
 
-
 export const isFavouriteMovie = async (id: number): Promise<boolean> => {
-  try {
-    const result = await database.listDocuments(DATABASE_ID, FAVOURITE_ID, [
-      Query.equal("movie_id", id)
-    ]);
+    try {
+        const result = await database.listDocuments(DATABASE_ID, FAVOURITE_ID, [
+            Query.equal("movie_id", id)
+        ]);
 
-    return result.documents.length > 0;
-  } catch (error) {
-    console.log("Error checking favourite:", error);
-    return false;
-  }
+        return result.documents.length > 0;
+    } catch (error) {
+        console.log("Error checking favourite:", error);
+        return false;
+    }
 };
+
+export const getFavouriteMovies = async (): Promise<FavouriteMovie[] | undefined> => {
+    try {
+        const result = await database.listDocuments(DATABASE_ID, FAVOURITE_ID, [
+            Query.orderDesc("$createdAt"),
+        ])
+        return result.documents as unknown as FavouriteMovie[];
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}

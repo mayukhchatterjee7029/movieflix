@@ -23,6 +23,14 @@ interface TrendingMovie {
   poster_url: string;
 }
 
+interface FavouriteMovie {
+  movie_id: number;
+  title: string;
+  poster_url: string;
+  vote_average: number;
+  release_date: string;
+}
+
 interface MovieDetails {
   adult: boolean;
   backdrop_path: string | null;

@@ -2,11 +2,17 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'expo-router'
 import { icons } from '@/constants/icons'
-import { FavouriteMovies, isFavouriteMovie } from '@/services/appwrite'
+import { ToggleFavouriteMovies, isFavouriteMovie } from '@/services/appwrite'
 
+interface MovieCardProps {
+    id: number;
+    poster_path: string;
+    title: string;
+    vote_average?: number;
+    release_date?: string;
+}
 
-
-const MovieCard = ({ id, poster_path, title, vote_average, release_date }: Movie) => {
+const MovieCard = ({ id, poster_path, title, vote_average, release_date }: MovieCardProps) => {
 
     const [liked, setLiked] = useState(false);
     useEffect(() => {
@@ -26,11 +32,11 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date }: Movie
                 style={{
                     right: -3.5,
                     zIndex: 10,
-                    bottom: 58
+                    top: 170
                 }}
                 onPress={async () => {
                     setLiked(!liked)
-                    await FavouriteMovies({ id, poster_path, title })
+                    await ToggleFavouriteMovies({ id, poster_path, title })
                 }}
             >
 
@@ -54,15 +60,19 @@ const MovieCard = ({ id, poster_path, title, vote_average, release_date }: Movie
 
                     <Text className='text-sm font-bold text-white mt-2' numberOfLines={1}>{title}</Text>
 
-                    <View className='flex-row items-center justify-start gap-x-1'>
-                        <Image className='size-4' source={icons.star} />
-                        <Text className='text-xs font-bold text-white mt-2 uppercase'>{(vote_average / 2).toFixed(1)}</Text>
-                    </View>
-                    <View className='flex-row items-center justify-between '>
-                        <Text className='text-xs text-light-300 font-medium mt-2'>
-                            {release_date?.split("-")[0]}
-                        </Text>
-                    </View>
+                    {vote_average != null && (
+                        <View className='flex-row items-center justify-start gap-x-1'>
+                            <Image className='size-4' source={icons.star} />
+                            <Text className='text-xs font-bold text-white mt-2 uppercase'>{(vote_average! / 2).toFixed(1)}</Text>
+                        </View>
+                    )}
+                    {release_date != null && (
+                        <View className='flex-row items-center justify-between '>
+                            <Text className='text-xs text-light-300 font-medium mt-2'>
+                                {release_date?.split("-")[0]}
+                            </Text>
+                        </View>
+                    )}
                 </TouchableOpacity>
             </Link>
         </View>
