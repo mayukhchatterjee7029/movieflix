@@ -16,10 +16,11 @@
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/logo.png",
         "backgroundImage": "./assets/images/logo.png",
-        "monochromeImage":"./assets/images/logo.png"
+        "monochromeImage": "./assets/images/logo.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.mayukh7029.movieflix"
     },
     "web": {
       "output": "static",
@@ -44,6 +45,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "76dd62ba-7421-493f-ab3e-cd9253e0bf9d"
+      }
     }
   }
 }
