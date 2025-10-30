@@ -90,4 +90,4 @@ MIT
 
 ---
 
-Made with ❤️ using [Expo](https://expo.dev/), [React Native](https://reactnative.dev/), [TypeScript](https://www.typescriptlang.org/), and [TailwindCSS](https://tailwindcss.com/)
+Made with ❤️ using [Expo](https://expo.dev/), [React Native](https://reactnative.dev/), [TypeScript](https://www.typescriptlang.org/), [NativeWind](https://www.nativewind.dev/) and [TailwindCSS](https://tailwindcss.com/)
