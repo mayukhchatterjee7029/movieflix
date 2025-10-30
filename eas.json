@@ -2,21 +2,18 @@
   "cli": {
     "version": ">= 16.25.1",
     "appVersionSource": "remote",
-    "requireCommit": true
+    "requireCommit":true
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "dotenv": true
+      "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
-      "dotenv": true
+      "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true,
-      "dotenv": true
+      "autoIncrement": true
     }
   },
   "submit": {
